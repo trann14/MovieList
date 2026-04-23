@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">MovieList</string>
+
+    <string name="default_movie_title">Movie Title</string>
+    <string name="desc_expand_notes">Expand for notes</string>
+    <string name="default_category">Action</string>
+    <string name="label_notes">Notes:</string>
+    <string name="dummy_notes">I really liked the cinematography in this one!</string>
+
+    <string-array name="movie_categories">
+        <item>Action</item>
+        <item>Comedy</item>
+        <item>Drama</item>
+        <item>Sci-Fi</item>
+        <item>Horror</item>
+    </string-array>
+
+    <string name="label_movie_title">Movie Title</string>
+    <string name="hint_movie_title">e.g. Inception</string>
+    <string name="label_category">Category</string>
+    <string name="option_plan_to_watch">Plan to Watch</string>
+    <string name="option_watched">Watched</string>
+    <string name="label_your_rating">Your Rating</string>
+    <string name="label_notes_hint">Notes</string>
+    <string name="hint_notes_box">What did you think?</string>
+    <string name="btn_add_to_list">Add to List</string>
 </resources>
