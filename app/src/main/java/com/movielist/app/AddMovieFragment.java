@@ -1,64 +1,91 @@
 package com.movielist.app;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.*;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddMovieFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AddMovieFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AddMovieFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddMovieFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddMovieFragment newInstance(String param1, String param2) {
-        AddMovieFragment fragment = new AddMovieFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    EditText editTitle, editNotes;
+    Spinner spinnerCategory;
+    RadioButton radioPlan, radioWatched;
+    LinearLayout layoutWatchedDetails;
+    RatingBar ratingBar;
+    Button btnSave;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_movie, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_add_movie, container, false);
+
+        // CONNECT UI
+
+        editTitle = view.findViewById(R.id.edit_movie_title);
+        editNotes = view.findViewById(R.id.edit_movie_notes);
+        spinnerCategory = view.findViewById(R.id.spinner_category);
+
+        radioPlan = view.findViewById(R.id.radio_plan);
+        radioWatched = view.findViewById(R.id.radio_watched);
+
+        layoutWatchedDetails = view.findViewById(R.id.layout_watched_details);
+
+        ratingBar = view.findViewById(R.id.rating_bar);
+        btnSave = view.findViewById(R.id.btn_save_movie);
+
+
+        // SHOW / HIDE WATCHED SECTION
+
+        radioWatched.setOnClickListener(v ->
+                layoutWatchedDetails.setVisibility(View.VISIBLE)
+        );
+
+        radioPlan.setOnClickListener(v ->
+                layoutWatchedDetails.setVisibility(View.GONE)
+        );
+
+        // SAVE MOVIE
+        btnSave.setOnClickListener(v -> {
+
+            String title = editTitle.getText().toString().trim();
+            String notes = editNotes.getText().toString().trim();
+            String category = spinnerCategory.getSelectedItem().toString();
+
+            if (title.isEmpty()) {
+                Toast.makeText(getContext(), "Enter movie title", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Movie movie = new Movie(title);
+            movie.setCategory(category);
+            movie.setNotes(notes);
+
+            if (radioWatched.isChecked()) {
+                movie.setWatched(true);
+                movie.setPlanToWatch(false);
+                movie.setRating(ratingBar.getRating());
+            } else {
+                movie.setWatched(false);
+                movie.setPlanToWatch(true);
+            }
+
+            // SAVE TO STORAGE
+            MovieManager.getInstance(getContext()).addMovie(movie);
+
+            // CLEAR UI
+            editTitle.setText("");
+            editNotes.setText("");
+            ratingBar.setRating(0);
+            radioPlan.setChecked(true);
+            layoutWatchedDetails.setVisibility(View.GONE);
+
+            Toast.makeText(getContext(), "Movie added!", Toast.LENGTH_SHORT).show();
+        });
+
+        return view;
     }
 }
