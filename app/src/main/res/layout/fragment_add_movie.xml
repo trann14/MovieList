@@ -1,0 +1,120 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_movie_title"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/edit_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxWidth="488dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="24dp"
+            android:minHeight="48dp"
+            android:textColor="#000000"
+            android:textColorHint="#575757"
+            android:inputType="textCapWords"
+            android:autofillHints="name"
+            android:hint="@string/hint_movie_title"
+            tools:ignore="TooWide"
+            android:importantForAccessibility="yes" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/label_category"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:entries="@array/movie_categories" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/option_plan_to_watch"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radio_watched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/option_watched" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/layout_watched_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/label_your_rating"
+            android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="1.0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_notes_hint"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_movie_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_notes_box"
+                android:autofillHints="notes"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="3" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:minWidth="200dp"
+            android:text="@string/btn_add_to_list" />
+    </LinearLayout>
+</ScrollView>
