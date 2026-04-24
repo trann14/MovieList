@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .inflate(R.layout.item_movie_card, parent, false);
 
         return new MovieViewHolder(view);
+
     }
 
     @Override
@@ -44,6 +46,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.txtTitle.setText(movie.getTitle());
         holder.txtCategory.setText(movie.getCategory());
         holder.txtNotes.setText(movie.getNotes());
+
+        //delete button
+        holder.btnDelete.setOnClickListener(v -> {
+
+            // remove from storage
+            MovieManager.getInstance(context).deleteMovie(position);
+
+            // remove from list
+            movieList.remove(position);
+
+            // refresh UI
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, movieList.size());
+        });
 
 
         // RATING
@@ -93,6 +109,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageButton btnExpand;
         View notesLayout;
 
+        Button btnDelete;
+
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -104,6 +122,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
             btnExpand = itemView.findViewById(R.id.btn_expand_notes);
             notesLayout = itemView.findViewById(R.id.layout_expandable_notes);
+            btnDelete = itemView.findViewById(R.id.btn_delete_movie);
         }
     }
 }
