@@ -27,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
         // 1. Find your Bottom Navigation Bar
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
-        // 2. Set the default screen (Watched List) when the app first opens
+        // 2. Set the default screen (Add Movie Screen) when the app first opens
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new WatchedFragment())
+                    .replace(R.id.fragment_container, new AddMovieFragment())
                     .commit();
+            bottomNav.setSelectedItemId(R.id.nav_add);
         }
 
         // 3. The logic to switch screens when you tap a tab

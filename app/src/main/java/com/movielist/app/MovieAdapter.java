@@ -81,17 +81,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         });
 
 
-        // DELETE (optional but useful)
-
-        holder.itemView.setOnLongClickListener(v -> {
-
-            MovieManager.getInstance(context).deleteMovie(position);
-            movieList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, movieList.size());
-
-            return true;
-        });
     }
 
     @Override
